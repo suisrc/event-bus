@@ -23,7 +23,22 @@ import com.suisrc.kratos.eventbus.service.EventBusService;
 public abstract class AbstractEventBusManager implements EventBusManager {
   private static final Logger logger = Logger.getLogger(AbstractEventBusManager.class.getName());
 
-  private final EventBusService delegate = new EventBusService();
+  private EventBusService delegate;
+
+  protected EventBusService createEventBusService() {
+    return new EventBusService();
+  }
+
+  /**
+   * 
+   */
+  @Override
+  public EventBusService getEventBusService() {
+    if (delegate == null) {
+      delegate = createEventBusService();
+    }
+    return delegate;
+  }
 
   /**
    * 是否加载
@@ -60,14 +75,6 @@ public abstract class AbstractEventBusManager implements EventBusManager {
     // subscribes.forEach(this::subscribe)
     String msg = "统计实际加载消息订阅服务数量：" + count;
     logger.info(msg);
-  }
-
-  /**
-   * 
-   */
-  @Override
-  public EventBusService getEventBusService() {
-    return delegate;
   }
 
   // ====================================================================================================
@@ -130,16 +137,16 @@ public abstract class AbstractEventBusManager implements EventBusManager {
     boolean result = false;
     switch (stype1) {
       case SYNC:
-        result = delegate.subscribe(topic1, thread1, obj, method, subscribe);
+        result = getEventBusService().subscribe(topic1, thread1, obj, method, subscribe);
         break;
       case ASYNC:
-        result = delegate.subscribeAsync(topic1, thread1, obj, method, subscribe);
+        result = getEventBusService().subscribeAsync(topic1, thread1, obj, method, subscribe);
         break;
       case ONCE_SYNC:
-        result = delegate.subscribeOnce(topic1, thread1, obj, method, subscribe);
+        result = getEventBusService().subscribeOnce(topic1, thread1, obj, method, subscribe);
         break;
       case ONCE_ASYNC:
-        result = delegate.subscribeOnceAsync(topic1, thread1, obj, method, subscribe);
+        result = getEventBusService().subscribeOnceAsync(topic1, thread1, obj, method, subscribe);
         break;
       default:
         break;
@@ -171,7 +178,7 @@ public abstract class AbstractEventBusManager implements EventBusManager {
       if (subscribe != null) {
 
         String topic1 = isEmpty(subscribe.topic()) ? subscribe.topic() : topic0;
-        if (delegate.unsubscribe(topic1, method)) {
+        if (getEventBusService().unsubscribe(topic1, method)) {
           count++;
         }
       }
