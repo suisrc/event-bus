@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import com.suisrc.kratos.core.annotation.Subscribe;
 import com.suisrc.kratos.core.annotation.Subscribe.SubscribeType;
-import com.suisrc.kratos.core.event.EventBus;
 import com.suisrc.kratos.core.event.SubscribeHandler;
 import com.suisrc.kratos.core.event.Subscriber;
 import com.suisrc.kratos.eventbus.service.EventBusService;
@@ -25,9 +24,6 @@ public abstract class AbstractEventBusManager implements EventBusManager {
 
   private EventBusService delegate;
 
-  protected EventBusService createEventBusService() {
-    return new EventBusService();
-  }
 
   /**
    * 
@@ -38,6 +34,10 @@ public abstract class AbstractEventBusManager implements EventBusManager {
       delegate = createEventBusService();
     }
     return delegate;
+  }
+
+  protected EventBusService createEventBusService() {
+    return new EventBusService();
   }
 
   /**
