@@ -35,9 +35,6 @@ public class Handler implements Comparable<Handler> {
     // 同步执行
     @Getter
     private final boolean sync;
-    // 事务
-    @Getter
-    private final boolean transactional;
     // 订阅注解
     @Getter
     private final Subscribe annotation;

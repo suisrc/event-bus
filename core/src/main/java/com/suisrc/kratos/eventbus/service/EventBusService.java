@@ -33,7 +33,7 @@ public class EventBusService {
      * @return
      */
     public boolean subscribe(String topic, String thread, Object object, Method method, Subscribe anno) {
-        return doSubscribe(topic, new Handler(thread, object, method, false, true, false, anno).init());
+        return doSubscribe(topic, new Handler(thread, object, method, false, true, anno).init());
     }
 
     /**
@@ -43,7 +43,7 @@ public class EventBusService {
      * @return
      */
     public boolean subscribeAsync(String topic, String thread, Object object, Method method, Subscribe anno) {
-        return doSubscribe(topic, new Handler(thread, object, method, false, false, false, anno).init());
+        return doSubscribe(topic, new Handler(thread, object, method, false, false, anno).init());
     }
 
     /**
@@ -53,7 +53,7 @@ public class EventBusService {
      * @return
      */
     public boolean subscribeOnce(String topic, String thread, Object object, Method method, Subscribe anno) {
-        return doSubscribe(topic, new Handler(thread, object, method, true, true, false, anno).init());
+        return doSubscribe(topic, new Handler(thread, object, method, true, true, anno).init());
     }
 
     /**
@@ -63,7 +63,7 @@ public class EventBusService {
      * @return
      */
     public boolean subscribeOnceAsync(String topic, String thread, Object object, Method method, Subscribe anno) {
-        return doSubscribe(topic, new Handler(thread, object, method, true, false, false, anno).init());
+        return doSubscribe(topic, new Handler(thread, object, method, true, false, anno).init());
     }
 
     /**
