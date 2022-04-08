@@ -4,7 +4,7 @@
 
     <groupId>com.suisrc.kratos</groupId>
     <artifactId>event-bus-parent</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>EventBus</name>
 

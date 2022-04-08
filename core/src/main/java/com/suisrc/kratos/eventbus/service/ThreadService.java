@@ -1,16 +1,16 @@
 package com.suisrc.kratos.eventbus.service;
 
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class ThreadService {
     private ThreadService(){}
     
-    private static ExecutorService service;
+    private static ScheduledExecutorService service;
 
-    public static ExecutorService getService() {
+    public static ScheduledExecutorService getService() {
         if (service == null) {
-            service = Executors.newCachedThreadPool();
+            service = Executors.newScheduledThreadPool(2);
         }
         return service;
     }

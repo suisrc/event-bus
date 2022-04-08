@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import com.suisrc.kratos.core.annotation.Subscribe;
 
@@ -150,7 +151,7 @@ public class EventBusService {
                 if (hdl.getAnnotation().requst()) {
                     fls.add(submitAsync1(hdl, thread, actuator)); // 异步处理
                 } else {
-                    fls.add(submitAsync2(thread, actuator));
+                    fls.add(submitAsync2(hdl, thread, actuator));
                 }
             }
         });
@@ -186,12 +187,18 @@ public class EventBusService {
         //   }
         // };
         // return KratosX.getServiceExecutor(thread).submit(runable0);
+        if (hdl.getAnnotation().delay() > 0) {
+            return ThreadService.getService().schedule(actuator, hdl.getAnnotation().delay(), TimeUnit.MILLISECONDS);
+        }
         return ThreadService.getService().submit(actuator); // 系统中的备用解决方法，实则无法处理多线程奋力和凭据传递内容
       }
 
-      protected Future<?> submitAsync2(String thread, Runnable actuator) {
+    protected Future<?> submitAsync2(Handler hdl, String thread, Runnable actuator) {
         // 对接Kratos框架的内容， 移动到fwk中的service中完成
         // return KratosX.getServiceExecutor(thread).submit(actuator);
+        if (hdl.getAnnotation().delay() > 0) {
+            return ThreadService.getService().schedule(actuator, hdl.getAnnotation().delay(), TimeUnit.MILLISECONDS);
+        }
         return ThreadService.getService().submit(actuator); // 系统中的备用解决方法，实则无法处理多线程奋力和凭据传递内容
     }
 }

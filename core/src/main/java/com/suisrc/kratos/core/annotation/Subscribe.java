@@ -64,6 +64,11 @@ public @interface Subscribe {
     int order() default 1024;
 
     /**
+     * 延迟处理, 单位毫秒
+     */
+    int delay() default 0;
+
+    /**
      * 订阅类型
      */
     enum SubscribeType {
