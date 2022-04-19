@@ -32,6 +32,8 @@ public interface EventBus {
    */
   Future<?> publishWaitAsync(String topic, Object... event);
 
+  //============================================================
+
   /**
    * 注册订阅对象，同一个主题， 同一个方法互斥
    * 

@@ -33,6 +33,19 @@ public @interface Subscribe {
     SubscribeType type() default SubscribeType.NONE;
 
     /**
+     * 优先级
+     * @return 
+     */
+    int order() default 1024;
+
+    /**
+     * 延迟处理, 单位毫秒
+     */
+    int delay() default 0;
+
+    //============================================================================
+
+    /**
      * 事务， 异步时候有效
      * @return
      */
@@ -45,7 +58,7 @@ public @interface Subscribe {
     boolean requst() default false;
 
     /**
-     * 用户上下文内容，equst = true有效， 多线程处理， 传递用户身份, UserCtx.class
+     * 用户上下文内容，requst = true有效， 多线程处理， 传递用户身份, UserCtx.class
      * 如果框架登录类型唯一， 可以为空
      * @return
      */
@@ -58,15 +71,12 @@ public @interface Subscribe {
     String[] caches() default {}; // 缓存
 
     /**
-     * 优先级
-     * @return 
+     * 扩展参数，方面重写内容和自定义参数
+     * @return
      */
-    int order() default 1024;
+    String[] params() default {}; // 参数
 
-    /**
-     * 延迟处理, 单位毫秒
-     */
-    int delay() default 0;
+    //============================================================================
 
     /**
      * 订阅类型

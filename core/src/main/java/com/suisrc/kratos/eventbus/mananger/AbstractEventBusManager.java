@@ -17,8 +17,8 @@ import com.suisrc.kratos.eventbus.service.EventBusService;
  * @author Y13
  *
  */
-// @ApplicationScoped
 // @Log
+// @ApplicationScoped
 public abstract class AbstractEventBusManager implements EventBusManager {
   private static final Logger logger = Logger.getLogger(AbstractEventBusManager.class.getName());
 
@@ -78,15 +78,13 @@ public abstract class AbstractEventBusManager implements EventBusManager {
   }
 
   // ====================================================================================================
-  // ====================================================================================================
-  // ====================================================================================================
 
   protected boolean isEmpty(String str) {
     return str == null || str.isEmpty();
   }
 
   /**
-   * 
+   * 订阅消息
    */
   @Override
   public int subscribe(Object obj) {
@@ -94,15 +92,12 @@ public abstract class AbstractEventBusManager implements EventBusManager {
       return 0;
     }
     int count = 0;
-
     String topic0 = "default";
     String thread0 = "event-bus";
     SubscribeType stype0 = SubscribeType.ASYNC;
 
     if (obj instanceof Subscriber) {
-
       Subscriber subscribe = (Subscriber) obj;
-
       if (!isEmpty(subscribe.getTopic())) {
         topic0 = subscribe.getTopic();
       }
@@ -123,6 +118,15 @@ public abstract class AbstractEventBusManager implements EventBusManager {
     return count;
   }
 
+  /**
+   * 订阅消息
+   * @param obj
+   * @param method
+   * @param topic0
+   * @param thread0
+   * @param stype0
+   * @return
+   */
   protected boolean suscribe(Object obj, Method method, String topic0, String thread0, SubscribeType stype0) {
     
     Subscribe subscribe = method.getAnnotation(Subscribe.class);
@@ -159,7 +163,7 @@ public abstract class AbstractEventBusManager implements EventBusManager {
   }
 
   /**
-   * 
+   * 取消订阅
    */
   @Override
   public int unsubscribe(Object obj) {
@@ -176,7 +180,6 @@ public abstract class AbstractEventBusManager implements EventBusManager {
     for (Method method : obj.getClass().getMethods()) {
       Subscribe subscribe = method.getAnnotation(Subscribe.class);
       if (subscribe != null) {
-
         String topic1 = isEmpty(subscribe.topic()) ? subscribe.topic() : topic0;
         if (getEventBusService().unsubscribe(topic1, method)) {
           count++;

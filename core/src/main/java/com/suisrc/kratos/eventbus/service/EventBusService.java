@@ -115,12 +115,24 @@ public class EventBusService {
         doPublish(topic, args);
     }
 
+    /**
+     * 推送消息，等待异步应答
+     * @param topic
+     * @param args
+     * @return
+     */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public Future<?> publishWaitAsync(String topic, Object... args) {
         List<Future<?>> lst = doPublish(topic, args);
         return new CollecFuture(lst);
     }
 
+    /**
+     * 订阅消息
+     * @param topic
+     * @param handler
+     * @return
+     */
     protected boolean doSubscribe(String topic, Handler handler) {
         Map<Object, Handler> map = handlers.computeIfAbsent(topic, t -> new ConcurrentHashMap<>());
         map.put(handler.getMethod(), handler);
@@ -129,6 +141,12 @@ public class EventBusService {
         // return lst.add(handler)
     }
 
+    /**
+     * 推送消息
+     * @param topic
+     * @param args
+     * @return
+     */
     protected List<Future<?>> doPublish(String topic, Object... args) {
         Map<Object, Handler> hdlmap = handlers.get(topic);
         if (hdlmap == null || hdlmap.isEmpty()) {
@@ -165,8 +183,6 @@ public class EventBusService {
         return fls;
     }
 
-    //====================================================================================================
-    //====================================================================================================
     //====================================================================================================
     // 多线程， 框架引用后可对该内容进行修改， 完成符合当前平台多线程处理方案
 
