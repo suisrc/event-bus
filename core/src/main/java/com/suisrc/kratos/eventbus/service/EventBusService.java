@@ -164,12 +164,12 @@ public class EventBusService {
             }
             if (hdl.isSync()) {
                 actuator.run();
+                submitSync0(hdl, actuator);
             } else {
-                String thread = hdl.getThread();
                 if (hdl.getAnnotation().requst()) {
-                    fls.add(submitAsync1(hdl, thread, actuator)); // 异步处理
+                    fls.add(submitAsync1(hdl, hdl.getThread(), actuator)); // 异步处理
                 } else {
-                    fls.add(submitAsync2(hdl, thread, actuator));
+                    fls.add(submitAsync2(hdl, hdl.getThread(), actuator));
                 }
             }
         });
@@ -185,6 +185,9 @@ public class EventBusService {
 
     //====================================================================================================
     // 多线程， 框架引用后可对该内容进行修改， 完成符合当前平台多线程处理方案
+    protected void submitSync0(Handler hdl, Runnable actuator) {
+        actuator.run();
+    }
 
     protected Future<?> submitAsync1(Handler hdl, String thread, Runnable actuator) {
         // 对接Kratos框架的内容， 移动到fwk中的service中完成
