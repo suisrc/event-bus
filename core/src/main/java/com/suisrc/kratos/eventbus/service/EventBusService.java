@@ -163,7 +163,6 @@ public class EventBusService {
                 return; // 参数不匹配， 无法处理
             }
             if (hdl.isSync()) {
-                actuator.run();
                 submitSync0(hdl, actuator);
             } else {
                 if (hdl.getAnnotation().requst()) {
