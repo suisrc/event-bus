@@ -6,7 +6,7 @@
     <artifactId>event-bus-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>EventBus</name>
+    <name>event-bus</name>
 
     <properties>
         <java.version>1.8</java.version>
