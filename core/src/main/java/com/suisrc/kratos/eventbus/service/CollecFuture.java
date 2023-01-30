@@ -7,7 +7,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 
@@ -27,7 +26,6 @@ public class CollecFuture<T> implements Future<T> {
     }
 
     @Getter
-    @NotNull
     private final List<Future<T>> futures;
     private boolean cancelled = false;
 
