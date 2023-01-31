@@ -2,10 +2,10 @@ package com.suisrc.kratos.eventbus;
 
 import java.lang.reflect.Method;
 
+import org.junit.jupiter.api.Test;
+
 import com.suisrc.kratos.core.annotation.Subscribe;
 import com.suisrc.kratos.eventbus.service.EventBusService;
-
-import org.junit.Test;
 
 public class EventBusIT {
 
